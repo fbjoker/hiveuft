@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -69,5 +70,12 @@ public class ETLDriver implements Tool {
 
     public Configuration getConf() {
         return conf;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        int run = ToolRunner.run(new ETLDriver(), args);
+
+        System.exit(run);
     }
 }
