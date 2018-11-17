@@ -1,5 +1,6 @@
 package com.alex;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -13,7 +14,15 @@ public class ETLMapper extends Mapper<LongWritable, Text,Text, NullWritable> {
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String s = value.toString();
 
-        ETLUtil.str(s);
+        String str = ETLUtil.str(s);
+
+        if(StringUtils.isBlank(str)){
+            return ;
+        }
+
+        k.set(str);
+
+        context.write(k,NullWritable.get());
 
 
     }
