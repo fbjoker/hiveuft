@@ -14,6 +14,9 @@ import org.apache.hadoop.util.ToolRunner;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/*
+  test ETL
+ */
 public class ETLDriver implements Tool {
     private Configuration conf;
     public int run(String[] args) throws Exception {
@@ -59,6 +62,7 @@ public class ETLDriver implements Tool {
             FileInputFormat.setInputPaths(job,inpath);
         }else {
             throw  new RuntimeException();
+
         }
 
 
