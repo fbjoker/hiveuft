@@ -49,6 +49,9 @@ object demo7 {
     val list3 = List(1, 9, 2, 8)
     val i5 = list3.foldRight(100)(_ - _)
     println(i5)
+    val i8 = (1 to 10).scanLeft(0)(_ + _)
+    println(i8)
+
 
   }
 
