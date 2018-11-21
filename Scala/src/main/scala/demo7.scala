@@ -40,6 +40,7 @@ object demo7 {
     val i1 = list.reduceLeft(_ - _)
     val i2 = list.reduceRight(_ - _)
     println(i1)
+    println(i1)
     println(i2)
     println(i2)
 
