@@ -41,6 +41,7 @@ object demo7 {
     val i2 = list.reduceRight(_ - _)
     println(i1)
     println(i2)
+    println(i2)
 
     val list2 = List(1, 9, 2, 8)
     val i4 = list2.fold(5)((sum, y) => sum + y)
