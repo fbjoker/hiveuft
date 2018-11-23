@@ -6,7 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hiveuft" />
+        <module name="azkaban" />
+        <module name="flume" />
+        <module name="hiveproj1" />
+        <module name="Scala" />
       </profile>
     </annotationProcessing>
   </component>

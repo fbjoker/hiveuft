@@ -4,7 +4,7 @@ object demo15 {
 
     val list= List("alex","bin","ccc")
     val list3= List(1,2,3,4,5)
-    list3.reduceLeft()
+    list3.reduceLeft(_-_)
 
 
     val list2 = list.map(x=>x.toUpperCase())
