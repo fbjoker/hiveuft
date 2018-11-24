@@ -132,6 +132,7 @@ public class SQLSourceHelper {
             return execSql.toString();
         } else {
             int length = execSql.toString().length();
+
             return execSql.toString().substring(0, length - String.valueOf(currentIndex).length()) + currentIndex;
         }
     }

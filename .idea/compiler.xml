@@ -9,6 +9,7 @@
         <module name="azkaban" />
         <module name="flume" />
         <module name="hiveproj1" />
+        <module name="Kafka" />
         <module name="Scala" />
       </profile>
     </annotationProcessing>
