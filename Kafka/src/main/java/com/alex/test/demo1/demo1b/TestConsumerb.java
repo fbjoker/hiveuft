@@ -12,6 +12,7 @@ public class TestConsumerb {
     public static void main(String[] args) {
 
         Properties prop = new Properties();
+
         prop.setProperty("bootstrap.servers","hadoop102:9092");
         prop.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         // value的序列化类
