@@ -32,6 +32,7 @@ public class ConsumerApi {
                     if (i==1){
 
                         leader = partion.leader();
+                        System.out.println(leader);
                     }
 
                 }
@@ -57,8 +58,8 @@ public class ConsumerApi {
 
 
             System.out.println(new String(bs,"UTF-8"));
-            System.out.println(bb);
-            System.out.println(bs);
+//            System.out.println(bb);
+//            System.out.println(bs);
 
 
         }
