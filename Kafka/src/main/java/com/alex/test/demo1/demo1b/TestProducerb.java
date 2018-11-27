@@ -21,7 +21,9 @@ public class TestProducerb {
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(prop);
 
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("demo1", "nome");
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("demo1", "nome2");
         producer.send(record);
+
+        producer.close();
     }
 }
