@@ -18,7 +18,7 @@ public class ConsumerApi {
     public static void main(String[] args) throws UnsupportedEncodingException {
 
         BrokerEndPoint leader=null;
-        String host="hadoop102";
+        String host="hadoop107";
         int port=9092;
         SimpleConsumer mconsumer = new SimpleConsumer(host,port,500,10*1024,"m");
         TopicMetadataRequest request = new TopicMetadataRequest(Arrays.asList("demo1"));
