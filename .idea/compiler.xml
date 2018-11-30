@@ -8,6 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="azkaban" />
         <module name="flume" />
+        <module name="Hbase" />
+        <module name="HbaseMR" />
         <module name="hiveproj1" />
         <module name="Kafka" />
         <module name="Scala" />

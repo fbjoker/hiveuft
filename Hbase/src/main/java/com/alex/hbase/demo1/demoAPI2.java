@@ -1,6 +1,8 @@
 package com.alex.hbase.demo1;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
@@ -40,16 +42,37 @@ public class demoAPI2 {
 
 
         System.out.println("添加成功");
-        Thread.sleep(5000);
+     //   Thread.sleep(5000);
 
         //删除数据
 //
 //        Delete del = new Delete(browkey);
 //        table.delete(del);
 //        System.out.println("删除成功");
+        
 
 
         Scan scan = new Scan();
+        ResultScanner scanner = table.getScanner(scan);
+        for (Result result : scanner) {
+            Cell[] cells = result.rawCells();
+            for (Cell cell : cells) {
+                byte[] r = CellUtil.cloneRow(cell);
+                byte[] f = CellUtil.cloneFamily(cell);
+                byte[] q = CellUtil.cloneQualifier(cell);
+                byte[] v = CellUtil.cloneValue(cell);
+
+                System.out.println("rowkey:"+Bytes.toString(r));
+                System.out.println("family:"+Bytes.toString(f));
+                System.out.println("qualifier:"+new String(q));
+                System.out.println("val:"+new String(v));
+
+            }
+
+        }
+
+        System.out.println("====================================================");
+
 
 
         table.close();
