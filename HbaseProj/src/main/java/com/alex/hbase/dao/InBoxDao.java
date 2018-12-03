@@ -64,4 +64,19 @@ public class InBoxDao {
 
 
     }
+
+    public void insertAttendDatas(Connection conn, String fanUser, String starUser, List<String> weiborowkey) throws IOException {
+        TableName tableName = TableName.valueOf("alex:inbox");
+        Table table = conn.getTable(tableName);
+
+
+        List<Put> puts=new ArrayList<Put>();
+
+        for (String s : weiborowkey) {
+            Put put = new Put(Bytes.toBytes(fanUser));
+            put.addColumn(Bytes.toBytes("f"),Bytes.toBytes("f"),Bytes.toBytes("f"));
+            puts.add(put);
+        }
+
+    }
 }

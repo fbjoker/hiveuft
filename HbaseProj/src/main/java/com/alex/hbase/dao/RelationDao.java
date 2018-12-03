@@ -51,4 +51,40 @@ public class RelationDao {
         return fansids;
 
     }
+
+    public void insertAttendData(Connection conn, String fanUser, String starUser) throws IOException {
+
+        TableName tableName = TableName.valueOf("alex:relation");
+
+        Table table = conn.getTable(tableName);
+
+        Put put = new Put(Bytes.toBytes(fanUser));
+        byte[] family = Bytes.toBytes("attend");
+        byte[] q = Bytes.toBytes(starUser);
+        byte[] val = Bytes.toBytes(starUser);
+
+        put.addColumn(family,q,val);
+        table.put(put);
+
+        table.close();
+
+
+    }
+
+    public void insertFansData(Connection conn, String starUser, String fanUser) throws IOException {
+        TableName tableName = TableName.valueOf("alex:relation");
+
+        Table table = conn.getTable(tableName);
+
+        Put put = new Put(Bytes.toBytes(fanUser));
+        byte[] family = Bytes.toBytes("fans");
+        byte[] q = Bytes.toBytes(fanUser);
+        byte[] val = Bytes.toBytes(fanUser);
+
+        put.addColumn(family,q,val);
+        table.put(put);
+
+        table.close();
+
+    }
 }
