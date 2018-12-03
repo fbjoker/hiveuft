@@ -102,4 +102,39 @@ public class WeiBoService {
 
 
     }
+
+    public void viewWeiBo(String fanUser, String starUser) throws IOException {
+
+
+        //获取数据
+        Connection conn = connHolder.get();
+
+        List<String> weiboRowkey=inBoxDao.getWeiBokey(conn,fanUser,starUser);
+
+
+        List<String> weiboContents= weiBoDao.getDatas(weiboRowkey);
+
+        for (String content : weiboContents) {
+            System.out.println(content);
+        }
+
+
+
+
+
+
+
+
+    }
+
+    public void deleteAttend(String fanUser, String starUser) throws IOException {
+        Connection conn = connHolder.get();
+        relationDao.delFans(conn,fanUser,starUser);
+        relationDao.delStar(conn,fanUser,starUser);
+        inBoxDao.delweobo(conn,fanUser,starUser);
+
+
+    }
+
+
 }

@@ -1,12 +1,7 @@
 package com.alex.hbase.dao;
 
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -47,8 +42,8 @@ public class InBoxDao {
         for (String s : fansid) {
         Put put = new Put(Bytes.toBytes(s));
             byte[] f = Bytes.toBytes("info");
-            byte[] q = Bytes.toBytes("info");
-            byte[] c = Bytes.toBytes(userid);
+            byte[] q = Bytes.toBytes(userid);
+            byte[] c = Bytes.toBytes(rowkey);
 
 
 
@@ -72,11 +67,61 @@ public class InBoxDao {
 
         List<Put> puts=new ArrayList<Put>();
 
+        int count=0;
         for (String s : weiborowkey) {
             Put put = new Put(Bytes.toBytes(fanUser));
-            put.addColumn(Bytes.toBytes("f"),Bytes.toBytes("f"),Bytes.toBytes("f"));
+            byte[] family = Bytes.toBytes("info");
+            byte[] column = Bytes.toBytes(starUser);
+            byte[] value = Bytes.toBytes(s);
+            //put.addColumn(family,column,value);
+            long ts = System.currentTimeMillis()+count++;
+            put.addColumn(family,column,ts,value);
+
             puts.add(put);
         }
+
+    }
+
+    public List<String> getWeiBokey(Connection conn, String fanUser, String starUser) throws IOException {
+
+        TableName tableName = TableName.valueOf("alex:inbox");
+
+        Table table = conn.getTable(tableName);
+
+        List<String> rowkeys= new ArrayList<String>();
+
+        Get get = new Get(Bytes.toBytes(fanUser));
+        byte[] family = Bytes.toBytes("attend");
+        byte[] colum = Bytes.toBytes(starUser);
+        get.addColumn(family,colum);
+                get.setMaxVersions(5);
+
+        Result result = table.get(get);
+
+        for (Cell cell : result.rawCells()) {
+            rowkeys.add(Bytes.toString(CellUtil.cloneValue(cell)));
+
+        }
+
+
+        table.close();
+
+        return rowkeys;
+    }
+
+    public void delweobo(Connection conn, String fanUser, String starUser) throws IOException {
+
+        TableName tableName = TableName.valueOf("alex:inbox");
+
+        Table table = conn.getTable(tableName);
+
+        Delete delete = new Delete(Bytes.toBytes(fanUser));
+        byte[] family = Bytes.toBytes("info");
+        byte[] colume = Bytes.toBytes(starUser);
+        delete.addColumns(family,colume);
+        table.delete(delete);
+
+        table.close();
 
     }
 }

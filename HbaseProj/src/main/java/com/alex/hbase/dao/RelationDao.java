@@ -87,4 +87,38 @@ public class RelationDao {
         table.close();
 
     }
+
+    public void delFans(Connection conn, String fanUser, String starUser) throws IOException {
+
+
+        TableName tableName = TableName.valueOf("alex:relation");
+
+        Table table = conn.getTable(tableName);
+        //删除fans关注的明星
+        Delete delete = new Delete(Bytes.toBytes(fanUser));
+        byte[] family = Bytes.toBytes("attend");
+        byte[] colume = Bytes.toBytes(starUser);
+        delete.addColumn(family,colume);
+        table.delete(delete);
+
+
+
+        table.close();
+    }
+
+    public void delStar(Connection conn, String fanUser, String starUser) throws IOException {
+        TableName tableName = TableName.valueOf("alex:relation");
+
+        Table table = conn.getTable(tableName);
+        //删除fans关注的明星
+        Delete delete = new Delete(Bytes.toBytes(starUser));
+        byte[] family = Bytes.toBytes("star");
+        byte[] colume = Bytes.toBytes(fanUser);
+        delete.addColumn(family,colume);
+        table.delete(delete);
+
+
+
+        table.close();
+    }
 }

@@ -83,4 +83,8 @@ public class WeiBoDao {
     results.close();
         return rowkeys;
     }
+
+    public List<String> getDatas(List<String> weiboRowkey) {
+        return null;
+    }
 }

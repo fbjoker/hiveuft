@@ -66,4 +66,34 @@ public class WeiBoController {
 
 
     }
+
+    public void viewWeiBo(String fanUser, String starUser) {
+
+        try {
+            weiBoService.start();
+            long time=System.currentTimeMillis();
+
+            weiBoService.viewWeiBo(fanUser,starUser);
+            weiBoService.end();
+
+        }catch (Exception e){
+
+        }
+
+
+
+    }
+
+    public void deleteAttend(String fanUser, String starUser) {
+        try {
+            weiBoService.start();
+
+            weiBoService.deleteAttend(fanUser,starUser);
+            weiBoService.end();
+
+        }catch (Exception e){
+
+        }
+
+    }
 }

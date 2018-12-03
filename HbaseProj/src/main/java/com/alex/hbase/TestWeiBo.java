@@ -30,10 +30,18 @@ public class TestWeiBo {
 
 
         //查看微博
+        /**
+         * 1.获取明星的微博(收件箱
+         * 2.通过微博数据查看信息
+         *
+         */
+
+        weiBoController.viewWeiBo(fanUser,starUser);
 
 
 
         //取消关注
+        weiBoController.deleteAttend(fanUser,starUser);
 
 
     }
