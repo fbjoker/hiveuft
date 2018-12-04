@@ -9,6 +9,9 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/CTProjA/CTParojA-common/pom.xml" />
+        <option value="$PROJECT_DIR$/CTProjB/ct-common/pom.xml" />
+        <option value="$PROJECT_DIR$/HbaseProj/HbaseProjb/pom.xml" />
         <option value="$PROJECT_DIR$/hiveproj1b/flume/pom.xml" />
       </set>
     </option>

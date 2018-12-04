@@ -9,9 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>HbaseProj</artifactId>
-    <packaging>pom</packaging>
-
+    <artifactId>HbaseProjb</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.apache.hbase</groupId>

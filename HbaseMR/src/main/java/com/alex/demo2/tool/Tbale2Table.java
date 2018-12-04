@@ -25,6 +25,7 @@ public class Tbale2Table implements Tool {
 //        job.setMapperClass();
 //        job.setMapOutputKeyClass();
 //        job.setMapOutputValueClass();
+        //table名,scan的内容, mapper,outputkey,outputval
         TableMapReduceUtil.initTableMapperJob("fruit",new Scan(),
                 HbaseTbaleMapper.class,
                 ImmutableBytesWritable.class,

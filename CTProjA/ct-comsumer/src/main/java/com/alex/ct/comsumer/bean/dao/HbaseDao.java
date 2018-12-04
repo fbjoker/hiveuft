@@ -3,6 +3,7 @@ package com.alex.ct.comsumer.bean.dao;
 import com.alex.ct.common.bean.BaseDao;
 import com.alex.ct.common.constant.Names;
 import com.alex.ct.common.constant.ValConstant;
+import com.alex.ct.comsumer.bean.Calllog;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 
@@ -25,12 +26,19 @@ public class HbaseDao extends BaseDao {
     }
 
 
+    public  void insert(Calllog log) throws Exception {
+
+        String rowKey=getRengionNum(log.getCall1(),log.getCalltime())+"_"+log.getCall1()+"_"+
+                log.getCall2()+"_"+log.getCalltime()+"_"+log.getDuration();
+        log.setRowkey(rowKey);
+
+        putData(log);
+    }
 
 
-    ;
 
 
-    public  void insert(String value){
+    public  void insert(String value) throws IOException {
 
         String[] data = value.split("\t");
 
@@ -59,5 +67,5 @@ public class HbaseDao extends BaseDao {
 
 
 
-    ;
+
 }

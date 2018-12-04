@@ -17,6 +17,12 @@
         <module>Kafka</module>
         <module>Hbase</module>
         <module>HbaseMR</module>
+        <module>HbaseMR2</module>
+        <module>HbaseProj</module>
+        <module>HbaseProjb</module>
+        <module>CTProjA</module>
+        <module>CTProjB</module>
+        <module>CTProjC</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec -->

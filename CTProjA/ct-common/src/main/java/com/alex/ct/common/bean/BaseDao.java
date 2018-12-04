@@ -1,16 +1,17 @@
 package com.alex.ct.common.bean;
 
+import com.alex.ct.common.api.Column;
+import com.alex.ct.common.api.RowKey;
+import com.alex.ct.common.api.TableRef;
 import com.alex.ct.common.constant.Names;
 import com.alex.ct.common.constant.ValConstant;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,11 @@ public abstract class BaseDao {
         Admin admin = getAdmin();
         if(conn!=null){
             conn.close();
+            connHolder.remove();
         }
         if(admin!=null){
             admin.close();
+            connHolder.remove();
         }
 
 
@@ -80,7 +83,7 @@ public abstract class BaseDao {
      * @param namespace
      */
     protected void creatNamespaceNX(String namespace) throws Exception {
-        Admin admin = adminHolder.get();
+        Admin admin = getAdmin();
         try {
             admin.getNamespaceDescriptor(namespace);
         } catch (NamespaceNotFoundException e) {
@@ -95,7 +98,7 @@ public abstract class BaseDao {
 
     protected void creatTableXX(String name, Integer regionCount, String... family) throws Exception {
 
-        Admin admin = adminHolder.get();
+        Admin admin = getAdmin();
         TableName tableName = TableName.valueOf(name);
         boolean b = admin.tableExists(tableName);
 
@@ -180,8 +183,69 @@ public abstract class BaseDao {
 
     }
 
-    protected void putData(String getvalue, Put put) {
+    protected void putData(String name, Put put) throws IOException {
 
+        Connection conn = getConnection();
+
+        TableName tableName = TableName.valueOf(name);
+        Table table = conn.getTable(tableName);
+
+        table.put(put);
+
+
+        table.close();
+
+
+    }
+
+    protected void putData(Object obj) throws Exception {
+        Class clazz = obj.getClass();
+
+        //获取注释
+        TableRef tableRef = (TableRef) clazz.getAnnotation(TableRef.class);
+
+        String tableName= tableRef.value();
+
+        Field[] fields = clazz.getDeclaredFields();
+        String stringrowkey="";
+        for (Field field : fields) {
+            RowKey rowk = field.getAnnotation(RowKey.class);
+            if(rowk!=null){
+                field.setAccessible(true);
+                stringrowkey= (String) field.get(obj);
+                break;
+            }
+
+
+            Connection conn = getConnection();
+
+            Table table = conn.getTable(TableName.valueOf(tableName));
+
+            Put put = new Put(Bytes.toBytes(stringrowkey));
+
+            for (Field f : fields) {
+                Column colume = f.getAnnotation(Column.class);
+                if(colume!=null){
+                    String family = colume.family();
+                    String colume1 = colume.colume();
+                    if(colume1==null||"".equals(colume1)){
+                        colume1=f.getName();
+                    }
+                    f.setAccessible(true);
+                    String value = (String) f.get(obj);
+                put.addColumn(Bytes.toBytes(family),Bytes.toBytes(colume1),Bytes.toBytes(value));
+
+                }
+
+
+            }
+
+            table.put(put);
+            table.close();
+
+
+
+        }
 
 
     }
