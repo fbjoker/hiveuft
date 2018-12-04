@@ -3,7 +3,11 @@ package com.alex.ct.common.constant;
 import com.alex.ct.common.bean.Val;
 
 public enum Names implements Val {
-    NAMESPACE("ct");
+    NAMESPACE("ct"),
+    TABLE("ct:calllog"),
+    CF_CALLER("caller"),
+    CF_INFO("info"),
+    TOPIC("ct");
 
     private  String  name;
     private  Names(String name){
@@ -20,7 +24,7 @@ public enum Names implements Val {
 
     }
 
-    public Object getvalue() {
-        return null;
+    public String getvalue() {
+        return name;
     }
 }

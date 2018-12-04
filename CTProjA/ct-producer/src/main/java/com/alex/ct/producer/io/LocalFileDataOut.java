@@ -35,12 +35,13 @@ public class LocalFileDataOut implements DataOut {
 
 
         writer.println(data);
+        writer.flush();
       //  writer.write(data);
-        if(count>5000){
+      /*  if(count>5000){
 
         writer.flush();
         count=0;
-        }
+        }*/
 
 
 

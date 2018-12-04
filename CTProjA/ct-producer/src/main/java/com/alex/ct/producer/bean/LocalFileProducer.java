@@ -80,12 +80,12 @@ public class LocalFileProducer implements Producer {
                 //通话记录
                 Calllog calllog = new Calllog(call1.getTel(),call2.getTel(),cTime,callTimefm);
 
-               // System.out.println(calllog);
+                System.out.println(calllog);
                 //刷写文件
                 out.write(calllog);
 
 
-               // Thread.sleep(500);
+                Thread.sleep(500);
 
             }
         } catch (Exception e) {

@@ -15,6 +15,7 @@
 
         <module>ct-producer</module>
         <module>ct-common</module>
+        <module>ct-comsumer</module>
     </modules>
 
 
