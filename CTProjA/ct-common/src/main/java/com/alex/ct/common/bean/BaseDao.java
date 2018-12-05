@@ -5,6 +5,7 @@ import com.alex.ct.common.api.RowKey;
 import com.alex.ct.common.api.TableRef;
 import com.alex.ct.common.constant.Names;
 import com.alex.ct.common.constant.ValConstant;
+import com.alex.ct.common.util.DateUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -13,6 +14,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public abstract class BaseDao {
@@ -96,7 +98,7 @@ public abstract class BaseDao {
 
     }
 
-    protected void creatTableXX(String name, Integer regionCount, String... family) throws Exception {
+    protected void creatTableXX(String name, Integer regionCount,String coprocessorClass, String... family) throws Exception {
 
         Admin admin = getAdmin();
         TableName tableName = TableName.valueOf(name);
@@ -108,13 +110,13 @@ public abstract class BaseDao {
 
         }
 
-        creatTable(name,regionCount,family);
+        creatTable(name,regionCount,coprocessorClass,family);
 
 
 
     }
 
-    protected  void creatTable(String name, Integer regionCount, String... family) throws  Exception{
+    protected  void creatTable(String name, Integer regionCount,String coprocessorClass, String... family) throws  Exception{
         Admin admin = adminHolder.get();
 
         TableName tableName = TableName.valueOf(name);
@@ -129,6 +131,11 @@ public abstract class BaseDao {
         for (String s : family) {
             HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(s);
             hTableDescriptor.addFamily(hColumnDescriptor);
+        }
+
+        if(coprocessorClass !=null &&!"".equals(coprocessorClass)){
+
+        hTableDescriptor.addCoprocessor(coprocessorClass);
         }
 
         if(regionCount==null||regionCount<=1){
@@ -160,6 +167,7 @@ public abstract class BaseDao {
 
         }
         list.toArray(bs);
+
 
 
 
@@ -197,6 +205,20 @@ public abstract class BaseDao {
 
 
     }
+    protected void putData(String name, List<Put> puts) throws IOException {
+
+        Connection conn = getConnection();
+
+        TableName tableName = TableName.valueOf(name);
+        Table table = conn.getTable(tableName);
+
+        table.put(puts);
+
+
+        table.close();
+
+
+    }
 
     protected void putData(Object obj) throws Exception {
         Class clazz = obj.getClass();
@@ -210,11 +232,12 @@ public abstract class BaseDao {
         String stringrowkey="";
         for (Field field : fields) {
             RowKey rowk = field.getAnnotation(RowKey.class);
-            if(rowk!=null){
+            if (rowk != null) {
                 field.setAccessible(true);
-                stringrowkey= (String) field.get(obj);
+                stringrowkey = (String) field.get(obj);
                 break;
             }
+        }
 
 
             Connection conn = getConnection();
@@ -247,8 +270,44 @@ public abstract class BaseDao {
 
         }
 
+        protected  List<String[]> getStartStopRowKey(String tell, String start,String end){
 
-    }
+            List<String[]> rowkeys= new ArrayList<String[]>();
+
+
+
+
+            String startTime=start.substring(0,6);
+            String endTime=end.substring(0,6);
+
+            Calendar starcel = Calendar.getInstance();
+            Calendar endcel = Calendar.getInstance();
+
+            starcel.setTime(DateUtil.parse(startTime,"yyyyMM"));
+            endcel.setTime(DateUtil.parse(endTime,"yyyyMM"));
+
+          while (starcel.getTimeInMillis()<endcel.getTimeInMillis()){
+              String nowtime = DateUtil.format(starcel.getTime(), "yyyyMM");
+
+              int regionNum=getRengionNum(tell,nowtime);
+
+              String startRow=regionNum+"_"+tell+"_"+nowtime;
+              String endRow=startRow+"|";
+
+              String[] rowkey={startRow,endRow};
+
+              rowkeys.add(rowkey);
+
+              starcel.add(Calendar.MONTH,1);
+
+          }
+
+            return rowkeys;
+
+        }
+
+
+
 
 
 

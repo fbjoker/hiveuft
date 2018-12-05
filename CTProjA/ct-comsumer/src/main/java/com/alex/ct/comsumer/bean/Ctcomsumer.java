@@ -36,9 +36,9 @@ public class Ctcomsumer implements Comsumer {
                     String value = record.value();
                     System.out.println(value);
                     //插入数据
-                    //dao.insert(value);
-                    Calllog calllog = new Calllog(value);
-                    dao.insert(calllog);
+                    dao.insert(value);
+                   //Calllog calllog = new Calllog(value);
+                    //dao.insert(calllog);
                 }
 
             }

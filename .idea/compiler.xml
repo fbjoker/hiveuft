@@ -9,6 +9,7 @@
         <module name="azkaban" />
         <module name="ct-commonb" />
         <module name="ct-comsumer" />
+        <module name="ct-consumer-coprocessor" />
         <module name="ct-producerb" />
         <module name="ctcommon" />
         <module name="ctcommonc" />

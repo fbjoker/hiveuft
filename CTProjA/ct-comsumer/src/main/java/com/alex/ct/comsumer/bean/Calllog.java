@@ -10,7 +10,7 @@ public class Calllog {
 
     @RowKey
     private  String rowkey;
-    @Column(family = "caller")
+    @Column(family = "caller",colume = "callrow")
     private String call1;
     @Column(family = "caller")
     private  String call2;
