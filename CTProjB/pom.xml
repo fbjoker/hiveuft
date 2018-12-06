@@ -16,6 +16,7 @@
         <module>ct-producerb</module>
         <module>ct-commonb</module>
         <module>ct-producerb</module>
+        <module>ct-analysisb</module>
     </modules>
 
 
