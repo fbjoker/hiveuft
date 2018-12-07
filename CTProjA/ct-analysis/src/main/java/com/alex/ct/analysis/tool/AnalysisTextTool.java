@@ -25,6 +25,7 @@ public class AnalysisTextTool  implements Tool {
         Scan scan = new Scan();
         scan.addFamily(Bytes.toBytes(Names.CF_CALLER.getvalue()));
 
+
         //mapper
         TableMapReduceUtil.initTableMapperJob(Names.TABLE.getvalue(),
                                                 scan,
