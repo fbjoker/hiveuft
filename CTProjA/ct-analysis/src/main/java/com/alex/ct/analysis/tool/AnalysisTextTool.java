@@ -19,6 +19,7 @@ public class AnalysisTextTool  implements Tool {
     public int run(String[] args) throws Exception {
         Job job = Job.getInstance();
         job.setJarByClass(AnalysisTextTool.class);
+        job.setNumReduceTasks(5);
 
 
         Scan scan = new Scan();
@@ -40,6 +41,7 @@ public class AnalysisTextTool  implements Tool {
         job.setOutputValueClass(Text.class);
 
         job.setOutputFormatClass(MySQLTextOutPutFormat.class);
+
 
 
 

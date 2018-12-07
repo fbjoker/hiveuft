@@ -26,6 +26,8 @@ public class MySQLTextOutPutFormat extends OutputFormat<Text,Text> {
             int sumduration=Integer.parseInt(data[1]);
 
             PreparedStatement preparedStatement=null;
+
+
             try {
 
                String sql="insert into ct_call (telid,dateid,sumcall,sumduration)values(?,?,?,?)";
