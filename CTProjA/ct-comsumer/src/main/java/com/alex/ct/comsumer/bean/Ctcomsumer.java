@@ -34,7 +34,7 @@ public class Ctcomsumer implements Comsumer {
                 ConsumerRecords<String, String> poll = consumer.poll(100);
                 for (ConsumerRecord<String, String> record : poll) {
                     String value = record.value();
-                    System.out.println(value);
+                    System.out.println("采集的数据:"+value);
                     //插入数据
                     dao.insert(value);
                    //Calllog calllog = new Calllog(value);
