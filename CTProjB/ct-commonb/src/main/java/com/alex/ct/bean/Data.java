@@ -11,4 +11,12 @@ public class Data implements Val{
         content= (String) val;
 
     }
+
+    public void setvalue(Object val) {
+
+    }
+
+    public Object getvalue() {
+        return null;
+    }
 }

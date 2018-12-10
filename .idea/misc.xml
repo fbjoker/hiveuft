@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/CTProjA/ct-web" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -11,6 +14,7 @@
       <set>
         <option value="$PROJECT_DIR$/CTProjA/CTParojA-common/pom.xml" />
         <option value="$PROJECT_DIR$/CTProjB/ct-common/pom.xml" />
+        <option value="$PROJECT_DIR$/CTProjB/ct-comsumerb/ct-comsumer-coprocessor/pom.xml" />
         <option value="$PROJECT_DIR$/HbaseProj/HbaseProjb/pom.xml" />
         <option value="$PROJECT_DIR$/hiveproj1b/flume/pom.xml" />
       </set>

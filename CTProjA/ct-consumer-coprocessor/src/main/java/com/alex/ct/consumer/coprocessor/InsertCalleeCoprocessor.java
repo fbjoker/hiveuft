@@ -39,9 +39,10 @@ public class InsertCalleeCoprocessor extends BaseRegionObserver {
         String flg=data[5];
 
         if("1".equals(flg)){
-            int key = coprocessorDao.getRegin(call1, calltime);
+            int key = coprocessorDao.getRegin(call2, calltime);
             String  rowKey2=key+"_"+call2+"_"+calltime+
                     "_"+call1+"_"+duration+"_0";
+            //System.out.println("callee:"+rowKey2);
 
             Put put2 = new Put(Bytes.toBytes(rowKey2));
             byte[] family2 = Bytes.toBytes(Names.CF_CALLEE.getvalue());
