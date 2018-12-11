@@ -33,7 +33,7 @@ public class BootStrap {
             resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 String tel = resultSet.getString(1);
-                Integer id = resultSet.getInt(2);
+                Integer id = resultSet.getInt(2 );
 
                 user.put(tel, id);
 
